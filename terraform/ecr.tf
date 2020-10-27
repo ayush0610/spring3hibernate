@@ -1,3 +1,3 @@
-resource "aws_ecr_repository" "Spring3HibernateApp" {
-  name = "Spring3HibernateApp"
+resource "aws_ecr_repository" "springhibernateapp" {
+  name = "springhibernateapp"
 }
