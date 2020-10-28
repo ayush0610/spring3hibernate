@@ -24,8 +24,8 @@ resource "aws_iam_instance_profile" "ecs-ec2-role" {
   role = aws_iam_role.ecs-ec2-role.name
 }
 
-resource "aws_iam_role" "ecs-consul-server-role" {
-  name = "ecs-consul-server-role"
+resource "aws_iam_role" "ecs-server-role" {
+  name = "ecs-server-role"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
