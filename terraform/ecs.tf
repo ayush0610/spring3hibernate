@@ -1,3 +1,4 @@
+/*
 resource "aws_ecs_cluster" "ecs-cluster" {
   name = "ecs-cluster"
 }
@@ -51,3 +52,4 @@ resource "aws_autoscaling_group" "asg" {
     create_before_destroy = true
   }
 }
+*/
