@@ -1,18 +1,10 @@
-resource "aws_lb" "ecs-lb" {
-  name               = "ecs-lb"
-  load_balancer_type = "application"
-  internal           = false
-  subnets            = [aws_subnet.public-subnet-1.id, aws_subnet.public-subnet-2.id]
-  security_groups = [aws_security_group.lb.id]
-}
-
 resource "aws_security_group" "lb" {
   name   = "allow-all-lb"
   vpc_id = "${aws_vpc.awsvpc.id}"
   ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
   egress {
@@ -21,6 +13,14 @@ resource "aws_security_group" "lb" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+}
+
+resource "aws_lb" "ecs-lb" {
+  name               = "ecs-lb"
+  load_balancer_type = "application"
+  internal           = false
+  subnets            = [aws_subnet.public-subnet-1.id, aws_subnet.public-subnet-2.id]
+  security_groups = [aws_security_group.lb.id]
 }
 
 resource "aws_lb_target_group" "lb_target_group" {

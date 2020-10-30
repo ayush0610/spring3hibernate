@@ -2,6 +2,8 @@
     {
       "name": "spring3hibernate",
       "image": "188078574990.dkr.ecr.us-east-1.amazonaws.com/spring3hibernate:latest",
+      "cpu": 10,
+      "memory": 128,
       "essential": true,
       "portMappings": [
         {
@@ -11,7 +13,7 @@
       "dependsOn": [
           {
             "containerName": "mysql",
-            "condition": "HEALTHY"
+            "condition": "START"
           }
         ]
     },
@@ -19,6 +21,8 @@
     {
         "name": "mysql",
         "image": "188078574990.dkr.ecr.us-east-1.amazonaws.com/mysql:latest",
+        "cpu": 10,
+        "memory": 128,
         "essential": true,
         "portMappings": [
             {
@@ -27,22 +31,28 @@
           ],
           "environment": [
               {
-                  "MYSQL_DATABASE": "employeedb",
-                  "MYSQL_USER": "root",
-                  "MYSQL_PASSWORD": "password",
-                  "MYSQL_ROOT_PASSWORD": "password"
-              }
-          ],
-          "mountPoints": [
+                "name": "MYSQL_DATABASE",
+                "value": "employeedb"
+              },
               {
-                 "containerPath": "/var/lib/mysql",
-                 "sourceVolume": "mysql_okts_tk"
-              }
-            ]
+                "name": "MYSQL_USER",
+                "value": "root"
+              },
+              {
+                "name": "MYSQL_PASSWORD",
+                "value": "password"
+              },
+              {
+                "name": "MYSQL_ROOT_PASSWORD",
+                "value": "password"
+              }              
+          ]
     },
     {
         "name": "nginx",
         "image": "188078574990.dkr.ecr.us-east-1.amazonaws.com/nginx:latest",
+        "cpu": 10,
+        "memory": 128,
         "essential": true,
         "portMappings": [
           {
@@ -52,7 +62,7 @@
         "dependsOn": [
             {
               "containerName": "spring3hibernate",
-              "condition": "HEALTHY"
+              "condition": "START"
             }
           ] 
     }
