@@ -1,0 +1,59 @@
+[
+    {
+      "name": "spring3hibernate",
+      "image": "188078574990.dkr.ecr.us-east-1.amazonaws.com/spring3hibernate:latest",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 8080
+        }
+      ],
+      "dependsOn": [
+          {
+            "containerName": "mysql",
+            "condition": "HEALTHY"
+          }
+        ]
+    },
+
+    {
+        "name": "mysql",
+        "image": "188078574990.dkr.ecr.us-east-1.amazonaws.com/mysql:latest",
+        "essential": true,
+        "portMappings": [
+            {
+              "containerPort": 3306
+            }
+          ],
+          "environment": [
+              {
+                  "MYSQL_DATABASE": "employeedb",
+                  "MYSQL_USER": "root",
+                  "MYSQL_PASSWORD": "password",
+                  "MYSQL_ROOT_PASSWORD": "password"
+              }
+          ],
+          "mountPoints": [
+              {
+                 "containerPath": "/var/lib/mysql",
+                 "sourceVolume": "mysql_okts_tk"
+              }
+            ]
+    },
+    {
+        "name": "nginx",
+        "image": "188078574990.dkr.ecr.us-east-1.amazonaws.com/nginx:latest",
+        "essential": true,
+        "portMappings": [
+          {
+            "containerPort": 80
+          }
+        ],
+        "dependsOn": [
+            {
+              "containerName": "spring3hibernate",
+              "condition": "HEALTHY"
+            }
+          ] 
+    }
+]
