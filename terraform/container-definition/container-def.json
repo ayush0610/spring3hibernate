@@ -29,6 +29,18 @@
               "containerPort": 3306
             }
           ],
+          "mountPoints": [
+            {
+              "containerPath": "/var/lib/mysql",
+              "sourceVolume": "mysql_okts_tk"
+            }
+          ],
+          "volumes": [
+              {
+                "name": "mysql_okts_tk",
+                "host": {}
+              }
+          ],
           "environment": [
               {
                 "name": "MYSQL_DATABASE",
